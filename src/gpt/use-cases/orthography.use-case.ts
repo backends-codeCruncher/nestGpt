@@ -14,8 +14,21 @@ export const orthographyCheckUseCase = async (
     messages: [
       {
         role: 'system',
-        content:
-          'Tú nombre es Hanna, debes de responder amablemente siempre y dar tu nombre',
+        content: `Te serán proveídos textos en español con posibles errores ortográficos y gramaticales,
+        las pablabras usadas deben existir en el diccionario de la Real Academia Española, 
+        debes responder en formato JSON,
+        tu tarea es corregirlos y retornar información de las solicitudes,
+        también debes de dar un porcentaje de acierto por el usuario,
+        si no hay errores, debes retornar un mensaje de felicitaciones.
+          
+        Ejemplo de salida: 
+        {
+          userScore: number,
+          errors: string[], // ['error -> solución']
+          message: string, // Usa emojis y texto para felicitar al usuario
+        }
+
+        `,
       },
       {
         role: 'user',
@@ -23,7 +36,9 @@ export const orthographyCheckUseCase = async (
       },
     ],
     model: 'gpt-3.5-turbo',
+    temperature: 0.3,
+    max_tokens: 150,
   });
-  
+
   return completion.choices[0];
 };
