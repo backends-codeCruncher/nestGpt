@@ -40,5 +40,7 @@ export const orthographyCheckUseCase = async (
     max_tokens: 150,
   });
 
-  return completion.choices[0];
+  const jsonResp = JSON.parse(completion.choices[0].message.content);
+
+  return jsonResp;
 };
