@@ -19,7 +19,8 @@ export const orthographyCheckUseCase = async (
         debes responder en formato JSON,
         tu tarea es corregirlos y retornar información de las solicitudes,
         también debes de dar un porcentaje de acierto por el usuario,
-        si no hay errores, debes retornar un mensaje de felicitaciones.
+        
+        Si no hay errores, debes retornar un mensaje de felicitaciones.
           
         Ejemplo de salida: 
         {
@@ -35,7 +36,7 @@ export const orthographyCheckUseCase = async (
         content: prompt,
       },
     ],
-    model: 'gpt-3.5-turbo',
+    model: 'gpt-3.5-turbo-1106',
     temperature: 0.3,
     max_tokens: 150,
   });
