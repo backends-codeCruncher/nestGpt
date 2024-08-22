@@ -1,8 +1,5 @@
 import OpenAI from 'openai';
-
-interface Options {
-  prompt: string;
-}
+import { Options } from '../interfaces/options.interface';
 
 export const orthographyCheckUseCase = async (
   openai: OpenAI,
