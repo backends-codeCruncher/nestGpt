@@ -6,7 +6,7 @@ import {
   TextToAudioDto,
   TranslateDto,
 } from './dtos';
-import { Response } from 'express';
+import type { Response } from 'express';
 
 @Controller('gpt')
 export class GptController {
@@ -48,7 +48,14 @@ export class GptController {
   }
 
   @Post('text-to-audio')
-  textToAudio(@Body() textToAudioDto: TextToAudioDto) {
-    return this.gptService.textToAudio(textToAudioDto);
+  async createTextToAudio(
+    @Body() textToAudioDto: TextToAudioDto,
+    @Res() res: Response,
+  ) {
+    const filePath = await this.gptService.textToAudio(textToAudioDto);
+
+    res.setHeader('Content-Type', 'audio/mp3');
+    res.status(HttpStatus.OK);
+    res.sendFile(filePath);
   }
 }
