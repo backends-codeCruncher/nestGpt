@@ -3,6 +3,11 @@
 /node_modules
 /build
 
+# Generated content
+
+/generated/*
+!/generated/.gitkeep
+
 # Logs
 logs
 *.log
