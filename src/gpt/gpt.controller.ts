@@ -102,7 +102,7 @@ export class GptController {
     )
     file: Express.Multer.File,
   ) {
-    console.log(file);
+    return this.gptService.audioToText(file);
   }
 
   @Get('text-to-audio/:fileId')

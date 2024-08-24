@@ -10,6 +10,7 @@ import {
   prosConsDiscusserStreamUseCase,
   translateUseCase,
   textToAudioUseCase,
+  audioToTextUseCase,
 } from './use-cases';
 import {
   OrthographyDto,
@@ -56,6 +57,13 @@ export class GptService {
     });
   }
 
+  async audioToText(audioFile: Express.Multer.File, prompt?: string) {
+    return await audioToTextUseCase(this.openai, {
+      prompt: prompt,
+      audioFile: audioFile,
+    });
+  }
+
   async recoverTextToAudioFile(fileId: string) {
     const filePath = path.resolve(
       __dirname,
@@ -65,7 +73,8 @@ export class GptService {
 
     const file = fs.existsSync(filePath);
 
-    if (!file) throw new NotFoundException(`Audio con id ${fileId} no encontrado`);
+    if (!file)
+      throw new NotFoundException(`Audio con id ${fileId} no encontrado`);
 
     return filePath;
   }
