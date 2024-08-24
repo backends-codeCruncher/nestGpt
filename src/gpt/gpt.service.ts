@@ -13,6 +13,7 @@ import {
   audioToTextUseCase,
 } from './use-cases';
 import {
+  AudioToTextDto,
   OrthographyDto,
   ProsConsDiscusserDto,
   TextToAudioDto,
@@ -57,9 +58,12 @@ export class GptService {
     });
   }
 
-  async audioToText(audioFile: Express.Multer.File, prompt?: string) {
+  async audioToText(
+    audioFile: Express.Multer.File,
+    audioToTextDto: AudioToTextDto,
+  ) {
     return await audioToTextUseCase(this.openai, {
-      prompt: prompt,
+      prompt: audioToTextDto.prompt ?? '',
       audioFile: audioFile,
     });
   }

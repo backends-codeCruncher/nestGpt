@@ -18,6 +18,7 @@ import { diskStorage } from 'multer';
 
 import { GptService } from './gpt.service';
 import {
+  AudioToTextDto,
   OrthographyDto,
   ProsConsDiscusserDto,
   TextToAudioDto,
@@ -101,8 +102,9 @@ export class GptController {
       }),
     )
     file: Express.Multer.File,
+    @Body() audioToTextDto: AudioToTextDto,
   ) {
-    return this.gptService.audioToText(file);
+    return this.gptService.audioToText(file, audioToTextDto);
   }
 
   @Get('text-to-audio/:fileId')
