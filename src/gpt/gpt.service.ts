@@ -65,7 +65,7 @@ export class GptService {
 
     const file = fs.existsSync(filePath);
 
-    if (!file) new NotFoundException(`Audio con id ${fileId} no encontrado`);
+    if (!file) throw new NotFoundException(`Audio con id ${fileId} no encontrado`);
 
     return filePath;
   }
