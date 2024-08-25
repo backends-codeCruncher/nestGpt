@@ -11,9 +11,11 @@ import {
   translateUseCase,
   textToAudioUseCase,
   audioToTextUseCase,
+  imageGenerationUseCase,
 } from './use-cases';
 import {
   AudioToTextDto,
+  ImageGenerationDto,
   OrthographyDto,
   ProsConsDiscusserDto,
   TextToAudioDto,
@@ -58,16 +60,6 @@ export class GptService {
     });
   }
 
-  async audioToText(
-    audioFile: Express.Multer.File,
-    audioToTextDto: AudioToTextDto,
-  ) {
-    return await audioToTextUseCase(this.openai, {
-      prompt: audioToTextDto.prompt ?? '',
-      audioFile: audioFile,
-    });
-  }
-
   async recoverTextToAudioFile(fileId: string) {
     const filePath = path.resolve(
       __dirname,
@@ -81,5 +73,21 @@ export class GptService {
       throw new NotFoundException(`Audio con id ${fileId} no encontrado`);
 
     return filePath;
+  }
+
+  async audioToText(
+    audioFile: Express.Multer.File,
+    audioToTextDto: AudioToTextDto,
+  ) {
+    return await audioToTextUseCase(this.openai, {
+      prompt: audioToTextDto.prompt ?? '',
+      audioFile: audioFile,
+    });
+  }
+
+  async imageGeneration(imageGenerationDto: ImageGenerationDto) {
+    return await imageGenerationUseCase(this.openai, {
+      ...imageGenerationDto,
+    });
   }
 }

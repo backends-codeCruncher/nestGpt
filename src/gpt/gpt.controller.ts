@@ -19,6 +19,7 @@ import { diskStorage } from 'multer';
 import { GptService } from './gpt.service';
 import {
   AudioToTextDto,
+  ImageGenerationDto,
   OrthographyDto,
   ProsConsDiscusserDto,
   TextToAudioDto,
@@ -76,6 +77,18 @@ export class GptController {
     res.sendFile(filePath);
   }
 
+  @Get('text-to-audio/:fileId')
+  async recoverTextToAudio(
+    @Param('fileId') fileId: string,
+    @Res() res: Response,
+  ) {
+    const filePath = await this.gptService.recoverTextToAudioFile(fileId);
+
+    res.setHeader('Content-Type', 'audio/mp3');
+    res.status(HttpStatus.OK);
+    res.sendFile(filePath);
+  }
+
   @Post('audio-to-text')
   @UseInterceptors(
     FileInterceptor('file', {
@@ -107,15 +120,8 @@ export class GptController {
     return this.gptService.audioToText(file, audioToTextDto);
   }
 
-  @Get('text-to-audio/:fileId')
-  async recoverTextToAudio(
-    @Param('fileId') fileId: string,
-    @Res() res: Response,
-  ) {
-    const filePath = await this.gptService.recoverTextToAudioFile(fileId);
-
-    res.setHeader('Content-Type', 'audio/mp3');
-    res.status(HttpStatus.OK);
-    res.sendFile(filePath);
+  @Post('image-generation')
+  async imageGeneration(@Body() imageGenerationDto: ImageGenerationDto) {
+    return await this.gptService.imageGeneration(imageGenerationDto);
   }
 }
