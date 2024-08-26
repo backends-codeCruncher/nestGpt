@@ -4,6 +4,7 @@ import {
   createMessageUseCase,
   createRunUseCase,
   createThreadUseCase,
+  getMessageListUseCase,
   runCompleteStatusUseCase,
 } from './use-cases';
 import { QuestionDto } from './dtos/question.dto';
@@ -31,5 +32,7 @@ export class AnyaAssistantService {
     });
 
     await runCompleteStatusUseCase(this.openai, { threadId, runId: run.id });
+
+    return await getMessageListUseCase(this.openai, { threadId });
   }
 }
