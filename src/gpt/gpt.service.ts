@@ -93,17 +93,16 @@ export class GptService {
     });
   }
 
-  async recoverGeneratedImage(fileId: string) {
+  async recoverGeneratedImage(filename: string) {
     const filePath = path.resolve(
       __dirname,
       '../../generated/images/',
-      `${fileId}.png`,
+      filename,
     );
 
     const file = fs.existsSync(filePath);
 
-    if (!file)
-      throw new NotFoundException(`Imagen con id ${fileId} no encontrada`);
+    if (!file) throw new NotFoundException('Archivo no encontrado');
 
     return filePath;
   }
