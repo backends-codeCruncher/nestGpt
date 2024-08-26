@@ -18,10 +18,11 @@ export const imageGenerationUseCase = async (
       response_format: 'url',
     });
 
-    const url = await downloadImageAsPng(response.data[0].url);
+    const fileName = await downloadImageAsPng(response.data[0].url);
+    const url = `${process.env.SERVER_URL}:${process.env.PORT}/api/gpt/image-generation/${fileName}`;
 
     return {
-      url,
+      url: url,
       openAIUrl: response.data[0].url,
       revised_prompt: response.data[0].revised_prompt,
     };
@@ -39,11 +40,11 @@ export const imageGenerationUseCase = async (
     response_format: 'url',
   });
 
-  const localImagePath = await downloadImageAsPng(response.data[0].url);
-  const fileName = path.basename(localImagePath);
+  const fileName = await downloadImageAsPng(response.data[0].url);
+  const url = `${process.env.SERVER_URL}:${process.env.PORT}/api/gpt/image-generation/${fileName}`;
 
   return {
-    url: '',
+    url: url,
     openAIUrl: response.data[0].url,
     revised_prompt: response.data[0].revised_prompt,
   };
