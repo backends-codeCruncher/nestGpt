@@ -90,4 +90,19 @@ export class GptService {
       ...imageGenerationDto,
     });
   }
+
+  async recoverGeneratedImage(fileId: string) {
+    const filePath = path.resolve(
+      __dirname,
+      '../../generated/images/',
+      `${fileId}.png`,
+    );
+
+    const file = fs.existsSync(filePath);
+
+    if (!file)
+      throw new NotFoundException(`Imagen con id ${fileId} no encontrada`);
+
+    return filePath;
+  }
 }
