@@ -1,4 +1,5 @@
 export interface Options {
   threadId: string;
-  question: string;
+  question?: string;
+  assistantId?: string;
 }

@@ -1,6 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import OpenAI from 'openai';
-import { createMessageUseCase, createThreadUseCase } from './use-cases';
+import {
+  createMessageUseCase,
+  createRunUseCase,
+  createThreadUseCase,
+} from './use-cases';
 import { QuestionDto } from './dtos/question.dto';
 
 @Injectable()
@@ -15,7 +19,8 @@ export class AnyaAssistantService {
 
   async userQuestion(questionDto: QuestionDto) {
     const message = await createMessageUseCase(this.openai, { ...questionDto });
-
-    console.log({ message });
+    const run = await createRunUseCase(this.openai, {
+      threadId: questionDto.threadId,
+    });
   }
 }
