@@ -8,11 +8,11 @@ export class AnyaAssistantController {
 
   @Post('create-thread')
   async createThread() {
-    return this.anyaAssistantService.createThread();
+    return await this.anyaAssistantService.createThread();
   }
 
   @Post('user-question')
   async userQuestion(@Body() questionDto: QuestionDto) {
-    return questionDto;
+    return await this.anyaAssistantService.userQuestion(questionDto);
   }
 }
