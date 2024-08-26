@@ -4,6 +4,7 @@ import {
   createMessageUseCase,
   createRunUseCase,
   createThreadUseCase,
+  runCompleteStatusUseCase,
 } from './use-cases';
 import { QuestionDto } from './dtos/question.dto';
 
@@ -18,9 +19,17 @@ export class AnyaAssistantService {
   }
 
   async userQuestion(questionDto: QuestionDto) {
-    const message = await createMessageUseCase(this.openai, { ...questionDto });
-    const run = await createRunUseCase(this.openai, {
-      threadId: questionDto.threadId,
+    const { threadId, question } = questionDto;
+
+    await createMessageUseCase(this.openai, {
+      threadId,
+      question,
     });
+
+    const run = await createRunUseCase(this.openai, {
+      threadId,
+    });
+
+    await runCompleteStatusUseCase(this.openai, { threadId, runId: run.id });
   }
 }
