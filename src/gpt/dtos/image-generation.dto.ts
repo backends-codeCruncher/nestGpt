@@ -6,7 +6,7 @@ export class ImageGenerationDto {
 
   @IsString()
   @IsOptional()
-  readonly orinalImage?: string;
+  readonly originalImage?: string;
 
   @IsString()
   @IsOptional()
