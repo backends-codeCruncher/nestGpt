@@ -8,7 +8,7 @@ export class AnyaAssistantController {
 
   @Post('create-thread')
   async createThread() {
-    return 'createThread';
+    return this.anyaAssistantService.createThread();
   }
 
   @Post('user-question')
