@@ -12,10 +12,12 @@ import {
   textToAudioUseCase,
   audioToTextUseCase,
   imageGenerationUseCase,
+  imageVariationUseCase,
 } from './use-cases';
 import {
   AudioToTextDto,
   ImageGenerationDto,
+  ImageVariationDto,
   OrthographyDto,
   ProsConsDiscusserDto,
   TextToAudioDto,
@@ -104,5 +106,9 @@ export class GptService {
       throw new NotFoundException(`Imagen con id ${fileId} no encontrada`);
 
     return filePath;
+  }
+
+  async imageVariation(imageVariationDto: ImageVariationDto) {
+    return await imageVariationUseCase(this.openai, { ...imageVariationDto });
   }
 }

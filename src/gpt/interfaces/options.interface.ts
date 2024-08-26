@@ -5,4 +5,5 @@ export interface Options {
   audioFile?: Express.Multer.File;
   originalImage?: string;
   maskImage?: string;
+  baseImage?: string;
 }
