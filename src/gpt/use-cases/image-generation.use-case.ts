@@ -1,5 +1,4 @@
 import * as fs from 'fs';
-import * as path from 'path';
 import OpenAI from 'openai';
 import { Options } from '../interfaces/options.interface';
 import { downloadBase64ImageAsPng, downloadImageAsPng } from 'src/helpers';
